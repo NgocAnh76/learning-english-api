@@ -1,0 +1,205 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String          @id @default(uuid())
+  name           String
+  email          String          @unique
+  password       String
+  role           ERole           @default(USER)
+  type           EUserType       @default(STUDENT)
+  status         EStatus         @default(ACTIVE)
+  courses        Course[]
+  description    String?
+  country        String?
+  gender         EGender?
+  certifications Certification[]
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+
+  enrolls  Enroll[]
+  reviews  Review[]
+  payments Payment[]
+
+  @@map("users")
+}
+
+model Course {
+  id             String          @id @default(uuid())
+  userId         String
+  name           String
+  description    String
+  tags           Tag[]
+  availableTimes AvailableTime[]
+  topics         Topic[]
+  status         EStatus         @default(ACTIVE)
+  createdAt      DateTime        @default(now())
+  updatedAt      DateTime        @updatedAt
+
+  enrolls Enroll[]
+  lessons Lesson[]
+  reviews Review[]
+  user    User     @relation(fields: [userId], references: [id])
+
+  @@map("courses")
+}
+
+model AvailableTime {
+  id        String        @id @default(uuid())
+  startTime String
+  endTime   String
+  day       EAvailableDay
+  courseId  String
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  course Course @relation(fields: [courseId], references: [id])
+
+  @@map("available_times")
+}
+
+model Topic {
+  id        String   @id @default(uuid())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  courses Course[]
+
+  @@map("topics")
+}
+
+model Certification {
+  id        String   @id @default(uuid())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  users User[]
+
+  @@map("certifications")
+}
+
+model Tag {
+  id        String   @id @default(uuid())
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  courses Course[]
+
+  @@map("tags")
+}
+
+model Lesson {
+  id        String   @id @default(uuid())
+  title     String
+  content   String
+  courseId  String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  course Course @relation(fields: [courseId], references: [id])
+
+  @@map("lessons")
+}
+
+model Enroll {
+  id        String        @id @default(uuid())
+  userId    String
+  courseId  String
+  status    EEnrollStatus @default(TRIAL)
+  createdAt DateTime      @default(now())
+  updatedAt DateTime      @updatedAt
+
+  user   User   @relation(fields: [userId], references: [id])
+  course Course @relation(fields: [courseId], references: [id])
+
+  @@map("enrolls")
+}
+
+model Review {
+  id        String   @id @default(uuid())
+  userId    String
+  courseId  String
+  rating    Int
+  comment   String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user   User   @relation(fields: [userId], references: [id])
+  course Course @relation(fields: [courseId], references: [id])
+
+  @@map("reviews")
+}
+
+model Payment {
+  id          String         @id @default(uuid())
+  userId      String
+  amount      Int
+  description String
+  status      EPaymentStatus @default(PENDING)
+  createdAt   DateTime       @default(now())
+  updatedAt   DateTime       @updatedAt
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("payments")
+}
+
+enum ERole {
+  ADMIN
+  USER
+}
+
+enum EUserType {
+  TEACHER
+  STUDENT
+}
+
+enum EStatus {
+  ACTIVE
+  INACTIVE
+}
+
+enum EEnrollStatus {
+  TRIAL
+  TRIAL_ENDED
+  LEARNING
+  COMPLETED
+  CANCELLED
+}
+
+enum EPaymentStatus {
+  PENDING
+  PAID
+  FAILED
+}
+
+enum EAvailableDay {
+  MONDAY
+  TUESDAY
+  WEDNESDAY
+  THURSDAY
+  FRIDAY
+  SATURDAY
+  SUNDAY
+}
+
+enum EGender {
+  MALE
+  FEMALE
+  OTHER
+}

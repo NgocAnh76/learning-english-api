@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  mysql:
+    image: mysql:8.0
+    container_name: mysql
+    restart: always
+    ports:
+      - 3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: 1234A
+      MYSQL_DATABASE: db_learning
+      MYSQL_USER: learning
+      MYSQL_PASSWORD: 1234A
+    volumes:
+      - db_learning:/var/lib/mysql
+
+volumes:
+  db_learning:
