@@ -1,14 +1,7 @@
 import { ApiProperty } from '@nestjs/swagger';
-import {
-  Certification,
-  Course,
-  EGender,
-  ERole,
-  EStatus,
-  EUserType,
-} from '@prisma/client';
+import { EGender, ERole, EStatus, EUserType } from '@prisma/client';
 import { IsArray, IsEmail, IsOptional, IsString } from 'class-validator';
-import { BaseEntityDto } from 'src/dto/utils.dto';
+import { BaseEntityDto } from 'src/common/dto/utils.dto';
 import { IUser } from 'src/types/user';
 
 export class CreateUserDto extends BaseEntityDto implements IUser {
@@ -68,7 +61,7 @@ export class CreateUserDto extends BaseEntityDto implements IUser {
     example: ['123456', '123457'],
     required: false,
   })
-  courses?: Course[];
+  courses?: string[];
 
   @IsString()
   @ApiProperty({
@@ -98,8 +91,8 @@ export class CreateUserDto extends BaseEntityDto implements IUser {
   @IsArray()
   @ApiProperty({
     type: 'array',
-    example: ['123456', '123457'],
+    example: ['TOEIC', 'IELTS', 'TOEFL'],
     required: false,
   })
-  certifications?: Certification[];
+  certifications?: string[];
 }

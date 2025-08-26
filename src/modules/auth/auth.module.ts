@@ -4,8 +4,8 @@ import { AuthController } from './auth.controller';
 import { PrismaService } from 'src/prisma/prisma.service';
 import { JwtModule, JwtService } from '@nestjs/jwt';
 import { ConfigModule, ConfigService } from '@nestjs/config';
-import { CheckPermissionStrategy } from '../permission/permission-strategy';
 import { CheckTokenStrategy } from './token/token-strategy';
+import { CheckPermissionStrategy } from 'src/common/permission/permission-strategy';
 
 @Module({
   imports: [

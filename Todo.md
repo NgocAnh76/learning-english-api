@@ -4,18 +4,18 @@
 
 #### 1.1. Backend
 
-- [ ] Cài đặt code base với NestJS
-- [ ] Thiết kế database với prisma
+- [√] Cài đặt code base với NestJS
+- [√] Thiết kế database với prisma
 
 #### 1.2. Frontend
 
-- [ ] Cài đặt code base với NextJS / TailwindCSS
-- [ ] Thêm các dependencies cần thiết
+- [√] Cài đặt code base với NextJS / TailwindCSS
+- [√] Thêm các dependencies cần thiết
 
 ### 2. Authentication
 
-- [ ] Thực hiện trang login
-- [ ] Thực hiện trang register
+- [√] Thực hiện trang login
+- [√] Thực hiện trang register
 - [ ] Thực hiện trang forgot password
 - [ ] Thực hiện trang reset password
 - [ ] Thực hiện trang verify email

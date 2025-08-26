@@ -5,8 +5,8 @@ import {
 } from '@nestjs/common';
 import { Reflector } from '@nestjs/core';
 import { AuthGuard } from '@nestjs/passport';
-import { IS_PUBLIC_KEY } from '../common/decorators/is-public.decorator';
-import { SKIP_PERMISSION } from '../common/decorators/skip-permission.decorator';
+import { IS_PUBLIC_KEY } from '../decorators/is-public.decorator';
+import { SKIP_PERMISSION } from '../decorators/skip-permission.decorator';
 
 @Injectable()
 export class PermissionCheck extends AuthGuard('check-permission') {

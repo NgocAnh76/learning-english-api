@@ -1,11 +1,4 @@
-import {
-  Certification,
-  Course,
-  EGender,
-  ERole,
-  EStatus,
-  EUserType,
-} from '@prisma/client';
+import { EGender, ERole, EStatus, EUserType } from '@prisma/client';
 import { IBaseEntity } from './general';
 
 export interface IUser extends IBaseEntity {
@@ -15,9 +8,9 @@ export interface IUser extends IBaseEntity {
   role?: ERole;
   type?: EUserType;
   status: EStatus;
-  courses?: Course[];
+  courses?: string[];
   description?: string;
   country?: string;
   gender: EGender;
-  certifications?: Certification[];
+  certifications?: string[];
 }
