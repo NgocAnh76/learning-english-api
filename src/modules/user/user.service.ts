@@ -48,15 +48,20 @@ export class UserService {
         country,
         courses: {
           connect: courses?.map((course) => ({
-            id: course.id,
+            id: course,
           })),
         },
         gender,
         certifications: {
-          connect: certifications?.map((certification) => ({
-            id: certification.id,
+          connectOrCreate: certifications?.map((certification) => ({
+            where: { name: certification },
+            create: { name: certification },
           })),
         },
+      },
+      include: {
+        courses: true,
+        certifications: true,
       },
     });
   }
@@ -113,7 +118,7 @@ export class UserService {
     if (updateUserDto.courses) {
       data.courses = {
         connect: updateUserDto.courses.map((course) => ({
-          id: course.id,
+          id: course,
         })),
       };
     }
@@ -122,8 +127,9 @@ export class UserService {
 
     if (updateUserDto.certifications) {
       data.certifications = {
-        connect: updateUserDto.certifications.map((certification) => ({
-          id: certification.id,
+        connectOrCreate: updateUserDto.certifications.map((certification) => ({
+          where: { name: certification },
+          create: { name: certification },
         })),
       };
     }

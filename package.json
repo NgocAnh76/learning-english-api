@@ -21,9 +21,9 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "postinstall": "npm run prisma:generate",
-    "prisma:push": "cd src/prisma && npx prisma db push && cd ../../",
+    "prisma:push": "npx prisma db push --schema=./src/prisma/schema.prisma",
     "prisma:generate": "npx prisma generate --schema=./src/prisma/schema.prisma",
-    "prisma:pull": "sh ./src/prisma/prisma-pull.sh"
+    "prisma:pull": "npx prisma db pull --schema=./src/prisma/schema.prisma"
   },
   "lint-staged": {
     "*.{ts,js,json,md}": [

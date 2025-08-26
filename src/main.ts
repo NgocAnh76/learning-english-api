@@ -1,10 +1,10 @@
 import { NestFactory, Reflector } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { ResponseSuccessInterceptor } from './modules/common/interceptor/response.interceptor';
 import { ValidationPipe } from '@nestjs/common';
-import { PermissionCheck } from './modules/permission/permission.check';
 import { TokenCheck } from './modules/auth/token/token-check';
+import { PermissionCheck } from './common/permission/permission.check';
+import { ResponseSuccessInterceptor } from './common/interceptor/response.interceptor';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);

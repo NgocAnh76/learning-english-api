@@ -26,6 +26,6 @@ export class CheckPermissionStrategy extends PassportStrategy(
       );
     }
 
-    return true;
+    return user;
   }
 }

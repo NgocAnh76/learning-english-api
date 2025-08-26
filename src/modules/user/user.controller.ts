@@ -11,8 +11,9 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserService } from './user.service';
 import { ApiBearerAuth } from '@nestjs/swagger';
+import { IsPublic } from 'src/common/decorators/is-public.decorator';
 
-@Controller('user')
+@Controller('users')
 @ApiBearerAuth()
 export class UserController {
   constructor(private readonly userService: UserService) {}
@@ -23,6 +24,7 @@ export class UserController {
   }
 
   @Get()
+  @IsPublic()
   findAll() {
     return this.userService.findAll();
   }

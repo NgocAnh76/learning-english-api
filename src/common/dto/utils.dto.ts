@@ -1,6 +1,6 @@
 import { ApiProperty } from '@nestjs/swagger';
 import { IsDate, IsOptional, IsString } from 'class-validator';
-import { Transform } from 'class-transformer';
+import { Transform, TransformFnParams } from 'class-transformer';
 
 export class BaseEntityDto {
   @ApiProperty({
@@ -19,7 +19,9 @@ export class BaseEntityDto {
   })
   @IsOptional()
   @IsDate()
-  @Transform(({ value }) => new Date(value).toISOString())
+  @Transform(
+    ({ value }: TransformFnParams) => new Date(value as string | number | Date),
+  )
   createdAt: Date;
 
   @ApiProperty({
@@ -29,6 +31,8 @@ export class BaseEntityDto {
   })
   @IsOptional()
   @IsDate()
-  @Transform(({ value }) => new Date(value).toISOString())
+  @Transform(
+    ({ value }: TransformFnParams) => new Date(value as string | number | Date),
+  )
   updatedAt: Date;
 }

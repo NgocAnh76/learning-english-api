@@ -30,7 +30,6 @@ export class CheckTokenStrategy extends PassportStrategy(
 
   async validate(payload: { userId: string }) {
     console.log(`TOKEN-VALIDATE`);
-    console.log({ payload });
 
     const user = await this.prisma.user.findUnique({
       where: { id: payload.userId },
